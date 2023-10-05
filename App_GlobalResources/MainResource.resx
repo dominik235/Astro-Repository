@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Adresa" xml:space="preserve">
+    <value>Adresa</value>
+    <comment>Naslov polja za adresu</comment>
+  </data>
+  <data name="AlertNotificationNaslov" xml:space="preserve">
+    <value>Obavijest</value>
+    <comment>Naslov notification boxa</comment>
+  </data>
+  <data name="AlertWarningNaslov" xml:space="preserve">
+    <value>Upozorenje!</value>
+    <comment>Naslov warning alert boxa</comment>
+  </data>
+  <data name="btnNew" xml:space="preserve">
+    <value>Novi unos</value>
+    <comment>Naslov gumba novi unos</comment>
+  </data>
+  <data name="BtnObrisi" xml:space="preserve">
+    <value>Obriši</value>
+    <comment>Text obriši butona</comment>
+  </data>
+  <data name="BtnOdustani" xml:space="preserve">
+    <value>Odustani</value>
+    <comment>Text odustani butona</comment>
+  </data>
+  <data name="btnOk" xml:space="preserve">
+    <value>U redu</value>
+    <comment>Nalov Ok buttona</comment>
+  </data>
+  <data name="btnSearch" xml:space="preserve">
+    <value>Pretraži</value>
+    <comment>Naslov gumba za pretragu</comment>
+  </data>
+  <data name="BtnSpremi" xml:space="preserve">
+    <value>Spremi</value>
+    <comment>Tekst spremi butona</comment>
+  </data>
+  <data name="BtnUpdate" xml:space="preserve">
+    <value>Spremi promjene</value>
+    <comment>Text spremi promjene butona</comment>
+  </data>
+  <data name="btnUredi" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="DatumUnosa" xml:space="preserve">
+    <value>Datum unosa</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+    <comment>Naslov polja za E-mail</comment>
+  </data>
+  <data name="EmptyData" xml:space="preserve">
+    <value>Odaberite parametre za pretraživanje / podaci ne postoje</value>
+    <comment>Tekst u slučaju praznih podataka</comment>
+  </data>
+  <data name="GreskaOpcenito" xml:space="preserve">
+    <value>Došlo je do greške, molim pokušajte ponovo.</value>
+    <comment>Naslov općenite greške</comment>
+  </data>
+  <data name="Ikg" xml:space="preserve">
+    <value>IKG</value>
+    <comment>Naslov polja za Ikg</comment>
+  </data>
+  <data name="Ime" xml:space="preserve">
+    <value>Ime</value>
+    <comment>Naslov polja za ime</comment>
+  </data>
+  <data name="Jibg" xml:space="preserve">
+    <value>JIBG</value>
+    <comment>Naslov polja za Jibg</comment>
+  </data>
+  <data name="Kbr" xml:space="preserve">
+    <value>Kućni broj</value>
+  </data>
+  <data name="Mobitel" xml:space="preserve">
+    <value>Mobitel</value>
+    <comment>Naslov polja za mobitel</comment>
+  </data>
+  <data name="Naselje" xml:space="preserve">
+    <value>Naselje</value>
+  </data>
+  <data name="Naslov" xml:space="preserve">
+    <value>Veti2Connect</value>
+    <comment>Naslov aplikacije</comment>
+  </data>
+  <data name="Naziv" xml:space="preserve">
+    <value>Naziv</value>
+    <comment>Naziv nečega</comment>
+  </data>
+  <data name="Odjava" xml:space="preserve">
+    <value>Odjava</value>
+    <comment>Odjava u login statusu</comment>
+  </data>
+  <data name="Oib" xml:space="preserve">
+    <value>OIB</value>
+    <comment>Naslov polja za Oib</comment>
+  </data>
+  <data name="Opcina" xml:space="preserve">
+    <value>Općina</value>
+  </data>
+  <data name="Organizacija" xml:space="preserve">
+    <value>Organizacija</value>
+    <comment>Naslov polja za organizaciju</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lozinka</value>
+    <comment>Naslov polja za lozinku</comment>
+  </data>
+  <data name="Pbr" xml:space="preserve">
+    <value>Poštanski broj</value>
+  </data>
+  <data name="Podnaslov" xml:space="preserve">
+    <value />
+    <comment>Podnaslov aplikacije</comment>
+  </data>
+  <data name="Posta" xml:space="preserve">
+    <value>Pošta</value>
+  </data>
+  <data name="Prezime" xml:space="preserve">
+    <value>Prezime</value>
+    <comment>Naslov polja za prezime</comment>
+  </data>
+  <data name="Prijava" xml:space="preserve">
+    <value>Prijava</value>
+    <comment>Prijava u login statusu</comment>
+  </data>
+  <data name="PrijavaGreska" xml:space="preserve">
+    <value>&lt;span style='display:block;' class='alert alert-danger'&gt;Vaš pokušaj prijave nije uspio.&lt;/span&gt;</value>
+    <comment>Poruka o greški prilikom logiranja</comment>
+  </data>
+  <data name="Telefon" xml:space="preserve">
+    <value>Telefon </value>
+    <comment>Naslov polja za telefon</comment>
+  </data>
+  <data name="Ulica" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="Uloga" xml:space="preserve">
+    <value>Uloga</value>
+    <comment>Naslov polja za ulogu</comment>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Korisničko ime</value>
+    <comment>Naslov polja za korisničko ime</comment>
+  </data>
+  <data name="Zupanija" xml:space="preserve">
+    <value>Županija</value>
+  </data>
+  <data name="ConfirmDeleteNaslov" xml:space="preserve">
+    <value>Potvrda</value>
+    <comment>Naslov boxa za return confirm</comment>
+  </data>
+  <data name="PitanjeZaBrisanjeOpcenito" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati zapis?</value>
+    <comment>Pitanje kod return confirm</comment>
+  </data>
+  <data name="KorisnikNijeLogiran" xml:space="preserve">
+    <value>Korisnik nije logiran</value>
+  </data>
+  <data name="MoraBitiBroj" xml:space="preserve">
+    <value>Podatak mora biti broj</value>
+    <comment>Poruka range validatora</comment>
+  </data>
+  <data name="OibNeispravan" xml:space="preserve">
+    <value>Oib je neispravan, molim ispravite oib.</value>
+    <comment>Poruka za neispravan Oib</comment>
+  </data>
+  <data name="PotvrdaBrisanja" xml:space="preserve">
+    <value>Zapis je uspješno obrisan.</value>
+    <comment>Poruka kod uspješnog brisanja zapisa</comment>
+  </data>
+  <data name="PotvrdaPromjene" xml:space="preserve">
+    <value>Zapis je uspješno izmjenjen.</value>
+    <comment>Poruka kod uspješne izmjene zapisa</comment>
+  </data>
+  <data name="PotvrdaSpremanja" xml:space="preserve">
+    <value>Zapis je uspješno spremljen.</value>
+    <comment>Poruka kod uspješnog dodavanja zapisa</comment>
+  </data>
+  <data name="RadnoMjesto" xml:space="preserve">
+    <value>Radno mjesto</value>
+    <comment>Naziv radno mjesto</comment>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+    <comment>Naslov Id kolone</comment>
+  </data>
+  <data name="IzaberiVetOrganizaciju" xml:space="preserve">
+    <value> - Izaberi ovlaštenu vet. organizaciju - </value>
+    <comment>Izaberi vet. organizaciju u dropdownu</comment>
+  </data>
+  <data name="IzaberiZupaniju" xml:space="preserve">
+    <value> - Izaberi županiju - </value>
+    <comment>Izaberi županiju u dropdownu</comment>
+  </data>
+  <data name="Jop" xml:space="preserve">
+    <value>Jop</value>
+    <comment>Jedinstvena oznaka predmeta</comment>
+  </data>
+  <data name="Klasa" xml:space="preserve">
+    <value>Klasa</value>
+    <comment>Klasa predmeta</comment>
+  </data>
+  <data name="Urbr" xml:space="preserve">
+    <value>Ur. broj</value>
+    <comment>Urudžbeni broj predmeta</comment>
+  </data>
+  <data name="btnIspis" xml:space="preserve">
+    <value>Ispis</value>
+  </data>
+  <data name="FarmaSifraPrefix" xml:space="preserve">
+    <value>HR</value>
+    <comment>Naziv prefiksa za farmu</comment>
+  </data>
+  <data name="Mibpg" xml:space="preserve">
+    <value>MIBPG</value>
+    <comment>Mibpg kratica</comment>
+  </data>
+  <data name="PanelVrstaPretrageTitle" xml:space="preserve">
+    <value>Vrsta pretrage</value>
+    <comment>Naslov panela za vrstu pretrage</comment>
+  </data>
+  <data name="Podrucje" xml:space="preserve">
+    <value>Područje</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Ukupno" xml:space="preserve">
+    <value>Ukupno</value>
+  </data>
+  <data name="DatumStatus" xml:space="preserve">
+    <value>Datum statusa</value>
+  </data>
+  <data name="Zatvori" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="EvOznaka" xml:space="preserve">
+    <value>Ev. oznaka</value>
+  </data>
+  <data name="Godina" xml:space="preserve">
+    <value>Godina</value>
+  </data>
+  <data name="Prikaz" xml:space="preserve">
+    <value>Prikaz</value>
+  </data>
+  <data name="TelBroj" xml:space="preserve">
+    <value>Telefonski broj</value>
+  </data>
+  <data name="btnZaduzi" xml:space="preserve">
+    <value>Zaduži</value>
+  </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="btnDodaj" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="btnZbroji" xml:space="preserve">
+    <value>Zbroji</value>
+  </data>
+  <data name="PitanjeZaAzuriranjeOpcenito" xml:space="preserve">
+    <value>Jeste li sigurni da želite ažurirati zapis?</value>
+  </data>
+  <data name="btnSearchAll" xml:space="preserve">
+    <value>Pretraži sve</value>
+  </data>
+</root>

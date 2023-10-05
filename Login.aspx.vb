@@ -42,6 +42,7 @@ Partial Class Login
             If login_status Then
                 lblLoginError.Text = ""
                 Session.Add("username", txtUserNameLogin.Text)
+                GetUserID(txtUserNameLogin.Text)
                 Response.Redirect("~/AstroHome.aspx", False)
                 FormsAuthentication.SetAuthCookie(txtUserNameLogin.Text, False)
             Else
@@ -51,5 +52,29 @@ Partial Class Login
             lblLoginError.Text = ex.Message.ToString
         End Try
 
+    End Sub
+
+    Private Sub GetUserID(username As String)
+        Try
+            Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
+                cn.Open()
+
+                Using cmd As SqlCommand = New SqlCommand("SELECT osoba_id FROM [AstroRepository].[dbo].[tOsoba_Login] WHERE Username = @username", cn)
+
+                    cmd.Parameters.AddWithValue("@username", username)
+
+                    Using sqlReader As SqlDataReader = cmd.ExecuteReader
+                        If sqlReader.Read Then
+                            Session.Add("user_id", sqlReader.GetInt32(0))
+
+                        End If
+                    End Using
+
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message.ToString)
+        End Try
     End Sub
 End Class

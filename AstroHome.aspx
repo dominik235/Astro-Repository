@@ -9,33 +9,44 @@
         <script src="https://widgets.astronomyapi.com/cdn/astronomy-api-widgets.js"></script>
         <style>
             #frame {
-                width: 1000px;
-                height: 500px;
+                width: 1100px;
+                height: 600px;
                 border: 1px solid groove;
             }
 
         </style>
     </head>
     <body>
-        <div id="moon-phase" style="display:inline-block;"></div><br />
+        <div id="moon-phase" style="display:inline-block;"></div><br /><br />
 
-        <iframe id="frame" scrolling="no" ></iframe>
+        <iframe id="frame" scrolling="no" style="float:left;"></iframe>
 
-        <div id="star-chart" style="width: 800px; margin: 0 auto;"></div>
+        <div id="star-chart" style="width: 800px; margin: 0 auto; float:right;"></div>
 
         <script>
             const authString = btoa(`${"19aa16ec-4f45-48f1-a566-496c28f75705"}:${"c373beabec4bba656602a2b540e27e902df3fd6388cfdfef69e4f7e3a9d847d33513a1f1c2d7afdb3dd462dd861d5a00f013f059a63d1d444026a7ad92cfe1d57b5454c4d94299d87e126d47595b713e5b6ad7aeeeaa25670479cf47ecddc4d2b3622feee296f5405586eea6c438cc65"}`);
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var hh = String(today.getHours()) + String(today.getMinutes())
+            var sati = String(today.getHours())
+            var minute = String(today.getMinutes())
+
+            if (sati.length == 1) {
+                sati = "0"+sati
+            }
+            if (minute.length == 1) {
+                minute = "0" + minute
+            }
+
+            var sat_format = sati + minute
+
             var yyyy = today.getFullYear();
 
-            console.log(hh)
+            //console.log(sat_format)
 
             today = yyyy + '-' + mm + '-' + dd;
 
-            document.getElementById("frame").src = "https://www.timeanddate.com/scripts/sunmap.php?iso=" + yyyy + mm + dd + "T1"+hh+"&earth=0";
+            document.getElementById("frame").src = "https://www.timeanddate.com/scripts/sunmap.php?iso=" + yyyy + mm + dd + "T1" + sat_format + "&earth=0";
             document.addEventListener("DOMContentLoaded", function () {
                 var client = new AstronomyAPI({
                     basicToken: authString,
@@ -61,9 +72,6 @@
                             "orientation": "south-up"
                         },
                     },
-                    (re) => {
-                        console.log("done", re);
-                    },
                 );
 
                 client.starChart(
@@ -84,14 +92,14 @@
                                         "declination": 0
                                     }
                                 },
-                                //"zoom": 2
+                                //"zoom": 1
                             },
                             "orientation": "south-up"
                         }
                     },
                 );
             });
-    </script>
+        </script>
     </body>
     </html>
 

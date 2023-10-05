@@ -5,27 +5,36 @@
 <html>
 <head runat="server">
     <title></title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link href="page.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b6dfff;">
-        <a class="navbar-brand" runat="server" href="~/AstroHome.aspx">Astro-Repository</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" runat="server" href="~/AstroHome.aspx">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" runat="server" href="~/Promatranja/Promatranja.aspx">Promatranja</a>
-                <a class="nav-item nav-link" href="https://stellarium-web.org/" target="_blank">Stellarium</a>
+    <form runat="server">
+        <asp:ScriptManager ID="ToolkitScriptManager1" runat="server" EnablePageMethods="true" AsyncPostBackTimeout="56000">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/jquery-3.7.1.slim.js" />
+            </Scripts>
+        </asp:ScriptManager>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b6dfff;">
+            <a class="navbar-brand" runat="server" href="~/AstroHome.aspx">Astro-Repository</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" runat="server" href="~/AstroHome.aspx">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" runat="server" href="~/Promatranja/Promatranja.aspx">Promatranja</a>
+                    <a class="nav-item nav-link" href="https://stellarium-web.org/" target="_blank">Stellarium</a>
+                    <asp:Button ID="btnLogOut" runat="server" Text="Odjava" class="btn btn-outline-success"/>
+                </div>
             </div>
-        </div>
-    </nav>
-    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-    </asp:ContentPlaceHolder>
+        </nav>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+    </form>
+
 </body>
 </html>
