@@ -70,7 +70,6 @@
 
     </script>
     &nbsp;
-    
     <table width="85%" align="center">
         <tr>
             <td>
@@ -414,10 +413,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <asp:ImageButton ID="imgNext" CssClass="imgNext" runat="server" Visible="false" ImageUrl="/Slike/arrowRight.png" />
                                         <div id="SlikaPrikaz" class="SlikaCenter" runat="server" visible="false">
-                                            <asp:ImageButton ID="imgPrevious" CssClass="imgPrevious" runat="server" Visible="false" ImageUrl="/Slike/arrowLeft.png" /><asp:Image ID="imgSlika" runat="server" Visible="false" Width="600px" /><asp:ImageButton ID="imgNext" CssClass="imgNext" runat="server" Visible="false" ImageUrl="/Slike/arrowRight.png" />
-                                            <asp:ImageButton ID="btnZatvoriSliku" CssClass="btnZatvoriSliku" runat="server" ImageUrl="/Slike/zatvori2.png" />
+                                            <asp:ImageButton ID="imgPrevious" CssClass="imgPrevious" runat="server" Visible="false" ImageUrl="/Slike/arrowLeft.png" />
+                                            <div id="SlikeRender" runat="server"></div>
                                         </div>
+                                        <asp:ImageButton ID="btnZatvoriSliku" CssClass="btnZatvoriSliku" runat="server" ImageUrl="/Slike/zatvori2.png" />
                                     </td>
                                 </tr>
                             </table>

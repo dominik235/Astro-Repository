@@ -149,10 +149,11 @@
 }
 .SlikaCenter {
     position: absolute;
-    display:block;
-    top:0%;
-    left:0%;
+    display: block;
+    top: 0%;
+    left: 0%;
     z-index: 1;
+    width: 600px;
 }
 .imgPrevious {
     position: absolute;

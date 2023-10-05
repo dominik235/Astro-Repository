@@ -2,6 +2,7 @@
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Xml
+Imports AjaxControlToolkit
 
 Partial Class Promatranja_Promatranja
     Inherits System.Web.UI.Page
@@ -61,7 +62,22 @@ Partial Class Promatranja_Promatranja
         End Set
     End Property
 
+    Private Property ses_slike_promatranje As ArrayList
+        Get
+
+            If Session("ses_slike_promatranje") Is Nothing Then
+                Session("ses_slike_promatranje") = New ArrayList
+            End If
+
+            Return CType(Session("ses_slike_promatranje"), ArrayList)
+        End Get
+        Set(ByVal value As ArrayList)
+            Session("ses_slike_promatranje") = value
+        End Set
+    End Property
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim brojac As Integer = 0
         If Not Page.IsPostBack Then
             If Context.User.Identity.IsAuthenticated = False Then
                 Response.Redirect("~/Login.aspx", False)
@@ -76,6 +92,22 @@ Partial Class Promatranja_Promatranja
             PopuniDDLObjektVrsta()
             PopuniDDLPovecanje()
             PopuniDDLSvjetlina()
+        Else
+
+            If ses_slike_promatranje.Count > 0 Then
+                For Each slika In ses_slike_promatranje
+                    Dim image As New Image
+                    image.ImageUrl = DohvatiPathSlike(slika)
+                    image.ID = "slika" + brojac.ToString
+                    image.ClientIDMode = System.Web.UI.ClientIDMode.Static
+
+                    image.Style.Add("display", "none")
+                    image.Width = 600
+                    SlikeRender.Controls.Add(image)
+                    brojac += 1
+                Next
+            End If
+
         End If
     End Sub
 
@@ -471,13 +503,29 @@ Partial Class Promatranja_Promatranja
         If e.CommandName = "PrikaziSlika" Then
             Dim promatranje_id = argumentiList(0)
             ses_promatranje_id = promatranje_id
+            Dim brojac As Integer = 0
 
             slike = DohvatiSlikePromatranje(promatranje_id)
+            ses_slike_promatranje = slike
+
+            For Each slika In slike
+                Dim image As New Image
+                image.ImageUrl = DohvatiPathSlike(slika)
+                image.ID = "slika" + brojac.ToString
+                image.ClientIDMode = System.Web.UI.ClientIDMode.Static
+
+                If brojac = 0 Then
+                    image.Style.Remove("display")
+                Else
+                    image.Style.Add("display", "none")
+                End If
+
+                image.Width = 600
+                SlikeRender.Controls.Add(image)
+                brojac += 1
+            Next
 
             slika_index = 0
-
-            imgSlika.ImageUrl = DohvatiPathSlike(slike(0))
-            imgSlika.Visible = True
             imgNext.Visible = True
             imgPrevious.Visible = False
             SlikaPrikaz.Visible = True
@@ -488,6 +536,7 @@ Partial Class Promatranja_Promatranja
 
     Protected Sub imgNext_Click(sender As Object, e As EventArgs) Handles imgNext.Click
         Dim slike As New ArrayList
+
         slike = DohvatiSlikePromatranje(ses_promatranje_id)
 
         slika_index += 1
@@ -502,16 +551,14 @@ Partial Class Promatranja_Promatranja
             imgNext.Visible = False
         End If
 
-        imgSlika.ImageUrl = DohvatiPathSlike(slike(slika_index))
+        Dim slikaTrenutna As Image = SlikeRender.FindControl("slika" + slika_index.ToString)
+        slikaTrenutna.Style.Remove("display")
+        Dim slikaPrije As Image = SlikeRender.FindControl("slika" + CStr(slika_index - 1))
+        slikaPrije.Style.Add("display", "none")
+
         GridViewPromatranja.DataBind()
     End Sub
-    Protected Sub btnZatvoriSliku_Click(sender As Object, e As EventArgs) Handles btnZatvoriSliku.Click
-        mdlPopupSlika.Hide()
-    End Sub
 
-    Protected Sub btnZatvoriSlikaSelected_Click(sender As Object, e As System.EventArgs)
-        mdlPopupSlika.Hide()
-    End Sub
     Protected Sub imgPrevious_Click(sender As Object, e As EventArgs) Handles imgPrevious.Click
         Dim slike As New ArrayList
         slike = DohvatiSlikePromatranje(ses_promatranje_id)
@@ -528,7 +575,17 @@ Partial Class Promatranja_Promatranja
             imgNext.Visible = False
         End If
 
-        imgSlika.ImageUrl = DohvatiPathSlike(slike(slika_index))
+        Dim slikaTrenutna As Image = SlikeRender.FindControl("slika" + slika_index.ToString)
+        slikaTrenutna.Style.Remove("display")
+        Dim slikaNakon As Image = SlikeRender.FindControl("slika" + CStr(slika_index + 1))
+        slikaNakon.Style.Add("display", "none")
+
+        GridViewPromatranja.DataBind()
+    End Sub
+    Protected Sub btnZatvoriSliku_Click(sender As Object, e As EventArgs) Handles btnZatvoriSliku.Click
+        mdlPopupSlika.Hide()
+        SlikeRender.Controls.Clear()
+        ses_slike_promatranje.Clear()
         GridViewPromatranja.DataBind()
     End Sub
 
