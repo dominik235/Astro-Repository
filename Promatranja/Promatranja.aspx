@@ -5,10 +5,6 @@
 
     <script type="text/javascript">
 
-        function uploadstart() {
-            alert("Datoteka se učitava, molimo pričekajte!");
-        }
-
         function performDelete(button) {
             __doPostBack(button.name, '')
         }
@@ -36,33 +32,33 @@
 
             //Here you can edit whatever you want = "..."
 
-            $(".ajax__fileupload_selectFileButton").text("Odaberi datoteku");
-            $(".ajax__fileupload_dropzone").text("Prebaci datoteku ovdje");
+            $(".ajax__fileupload_selectFileButton").text("Odaberi slike");
+            $(".ajax__fileupload_dropzone").text("Prebaci slike ovdje");
             $(".ajax__fileupload_uploadbutton").text("Učitaj");
 
-            document.getElementById("ctl00_ContentPlaceHolder1_AjaxFileUpload1_FileStatusContainer").innerHTML = "Molim odaberite datoteku.";
+            document.getElementById("ctl00_ContentPlaceHolder1_AjaxFileUpload1_FileStatusContainer").innerHTML = "Molim odaberi slike.";
 
-            Sys.Extended.UI.Resources.AjaxFileUpload_SelectFile = "Odaberi datoteku";
-            Sys.Extended.UI.Resources.AjaxFileUpload_DropFiles = "Prebaci datoteku ovdje";
+            Sys.Extended.UI.Resources.AjaxFileUpload_SelectFile = "Odaberi slike";
+            Sys.Extended.UI.Resources.AjaxFileUpload_DropFiles = "Prebaci slike ovdje";
             Sys.Extended.UI.Resources.AjaxFileUpload_Pending = "Čekanje";
             Sys.Extended.UI.Resources.AjaxFileUpload_Remove = "Ukloni";
             Sys.Extended.UI.Resources.AjaxFileUpload_Upload = "Učitaj";
             Sys.Extended.UI.Resources.AjaxFileUpload_Uploaded = "Učitano";
             Sys.Extended.UI.Resources.AjaxFileUpload_UploadedPercentage = "Učitano {0} %";
             Sys.Extended.UI.Resources.AjaxFileUpload_Uploading = "Učitavanje";
-            Sys.Extended.UI.Resources.AjaxFileUpload_FileInQueue = "{0} datoteka na čekanju.";
-            Sys.Extended.UI.Resources.AjaxFileUpload_AllFilesUploaded = "Sve datoteke učitane.";
-            Sys.Extended.UI.Resources.AjaxFileUpload_FileList = "Lista učitanih datoteka:";
-            Sys.Extended.UI.Resources.AjaxFileUpload_SelectFileToUpload = "Molim odaberite datoteku za učitavanje.";
+            Sys.Extended.UI.Resources.AjaxFileUpload_FileInQueue = "{0} slika na čekanju.";
+            Sys.Extended.UI.Resources.AjaxFileUpload_AllFilesUploaded = "Sve slike učitane.";
+            Sys.Extended.UI.Resources.AjaxFileUpload_FileList = "Lista učitanih slika:";
+            Sys.Extended.UI.Resources.AjaxFileUpload_SelectFileToUpload = "Odaberi slike za učitavanje.";
             Sys.Extended.UI.Resources.AjaxFileUpload_Cancelling = "Poništavanje...";
             Sys.Extended.UI.Resources.AjaxFileUpload_UploadError = "Pojavila se greška kod učitavanja.";
             Sys.Extended.UI.Resources.AjaxFileUpload_CancellingUpload = "Poništavanje učitavanja...";
-            Sys.Extended.UI.Resources.AjaxFileUpload_UploadingInputFile = "Učitavanje datoteke: {0}.";
+            Sys.Extended.UI.Resources.AjaxFileUpload_UploadingInputFile = "Učitavanje slike: {0}.";
             Sys.Extended.UI.Resources.AjaxFileUpload_Cancel = "Poništi";
             Sys.Extended.UI.Resources.AjaxFileUpload_Canceled = "Poništeno";
-            Sys.Extended.UI.Resources.AjaxFileUpload_UploadCanceled = "Učitavanje datoteke poništeno";
+            Sys.Extended.UI.Resources.AjaxFileUpload_UploadCanceled = "Učitavanje slike poništeno";
             Sys.Extended.UI.Resources.AjaxFileUpload_DefaultError = "Greška kod učitavanja";
-            Sys.Extended.UI.Resources.AjaxFileUpload_UploadingHtml5File = "Učitavanje datoteke: {0} veličina {1} bajtova.";
+            Sys.Extended.UI.Resources.AjaxFileUpload_UploadingHtml5File = "Učitavanje slike: {0} veličina {1} bajtova.";
             Sys.Extended.UI.Resources.AjaxFileUpload_error = "Greška";
 
         }
@@ -83,21 +79,18 @@
                                     <div class="col-auto">
                                         <asp:Label for="DropDownListLokacije" runat="server">Lokacija:</asp:Label>
                                         <asp:DropDownList ID="DropDownListLokacije" runat="server" Width="150px" class="form-control">
-                                            <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
 
                                     <div class="col-auto">
                                         <asp:Label for="DropDownListInstrumenti" runat="server">Instrument:</asp:Label>
                                         <asp:DropDownList ID="DropDownListInstrumenti" runat="server" Width="300px" class="form-control">
-                                            <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
 
                                     <div class="col-auto">
                                         <asp:Label for="DropDownListObjekti" runat="server">Objekt:</asp:Label>
                                         <asp:DropDownList ID="DropDownListObjekti" runat="server" Width="150px" class="form-control">
-                                            <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
 
@@ -123,7 +116,6 @@
                                     <div class="col-auto">
                                         <asp:Label for="DropDownListGodine" runat="server">Godina:</asp:Label>
                                         <asp:DropDownList ID="DropDownListGodine" runat="server" Width="150px" class="form-control">
-                                            <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
 
@@ -161,14 +153,21 @@
                                     <asp:TemplateField ShowHeader="False">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="ibtnSlika" runat="server" CausesValidation="False"
-                                                ImageUrl="~/slike/slika2.png" ToolTip="Prikaz slika"
+                                                ImageUrl="~/slike/slika.png" ToolTip="Prikaži sliku"
                                                 CommandArgument='<%# Bind("promatranje_id")%>' CommandName="PrikaziSlika" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField ShowHeader="False">
+                                        <ItemTemplate>
+                                            <asp:ImageButton ID="ibtnOpis" runat="server" CausesValidation="False"
+                                                ImageUrl="~/slike/opis.png" ToolTip="Prikaži opis"
+                                                CommandArgument='<%# Bind("promatranje_id")%>' CommandName="PrikaziOpis" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="promatranje_id" HeaderText="Promatranje broj" InsertVisible="False" ReadOnly="True" SortExpression="promatranje_id" />
                                     <asp:BoundField DataField="Objekt" HeaderText="Objekt" SortExpression="Objekt" />
                                     <asp:BoundField DataField="Objekt Vrsta" HeaderText="Objekt Vrsta" SortExpression="Objekt Vrsta" />
-                                    <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
+                                    <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" DataFormatString="{0:dd/MM/yyyy}" />
                                     <asp:BoundField DataField="Instrument" HeaderText="Instrument" SortExpression="Instrument" />
                                     <asp:BoundField DataField="Lokacija" HeaderText="Lokacija" SortExpression="Lokacija" />
                                     <asp:BoundField DataField="Svjetlina" HeaderText="Svjetlina" SortExpression="Svjetlina" />
@@ -249,7 +248,6 @@
                                                                                 </td>
                                                                                 <td width="530px">
                                                                                     <asp:DropDownList ID="DropDownListLokacijaEdit" runat="server" Width="150px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
 
@@ -258,7 +256,6 @@
                                                                                 <td>
                                                                                     <asp:DropDownList ID="DropDownListInstrumentiEdit" runat="server"
                                                                                         Width="300px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
                                                                             </tr>
@@ -268,7 +265,6 @@
                                                                                 <td>
                                                                                     <asp:DropDownList ID="DropDownListPovecanjeEdit" runat="server"
                                                                                         Width="300px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
                                                                                 <td>Tip promatranja:
@@ -276,7 +272,6 @@
                                                                                 <td>
                                                                                     <asp:DropDownList ID="DropDownListPromatranjeTipEdit" runat="server"
                                                                                         Width="300px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
                                                                             </tr>
@@ -286,11 +281,13 @@
                                                                                 <td>
                                                                                     <asp:DropDownList ID="DropDownListSvjetlinaEdit" runat="server"
                                                                                         Width="300px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
-                                                                                <td></td>
-                                                                                <td></td>
+                                                                                <td>Objekt vrsta:</td>
+                                                                                <td>
+                                                                                    <asp:DropDownList ID="DropDownListObjektVrstaEdit" runat="server"
+                                                                                        Width="300px" class="form-control">
+                                                                                    </asp:DropDownList></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Slika kvaliteta:
@@ -298,15 +295,13 @@
                                                                                 <td>
                                                                                     <asp:DropDownList ID="DropDownListSlikaKvalitetaEdit" runat="server"
                                                                                         Width="300px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
-                                                                                <td>Objekt vrsta:
+                                                                                <td>Okular:
                                                                                 </td>
                                                                                 <td>
-                                                                                    <asp:DropDownList ID="DropDownListObjektVrstaEdit" runat="server"
+                                                                                    <asp:DropDownList ID="DropDOwnListOkularEdit" runat="server"
                                                                                         Width="300px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
                                                                                     </asp:DropDownList>
                                                                                 </td>
                                                                             </tr>
@@ -314,13 +309,18 @@
                                                                                 <td>Objekt:
                                                                                 </td>
                                                                                 <td>
-                                                                                    <asp:DropDownList ID="DropDownListObjektiEdit" runat="server"
-                                                                                        Width="150px" class="form-control">
-                                                                                        <asp:ListItem Text="" Value="-1"></asp:ListItem>
-                                                                                    </asp:DropDownList>
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <asp:DropDownList ID="DropDownListObjektiEdit" runat="server"
+                                                                                            Width="150px" class="form-control">
+                                                                                        </asp:DropDownList>&nbsp;<asp:ImageButton ID="ibtnNoviObjekt" runat="server" ImageUrl="/Slike/plus.png" />
+                                                                                        &nbsp;&nbsp;<asp:Label ID="lblNoviObjekt" runat="server" Visible="false">Novi objekt:</asp:Label>&nbsp;&nbsp;<asp:TextBox ID="txtNoviObjekt" runat="server" Width="150px" class="form-control" Visible="false"></asp:TextBox>&nbsp;&nbsp;<asp:ImageButton ID="ibtnSpremiNoviObjekt" runat="server" ImageUrl="/Slike/checkmark.png" Visible="false" />
+                                                                                    </div>
                                                                                 </td>
-                                                                                <td></td>
-                                                                                <td></td>
+                                                                                <td>Barlow: </td>
+                                                                                <td>
+                                                                                    <asp:DropDownList ID="DropDownListBarlowEdit" runat="server"
+                                                                                        Width="300px" class="form-control">
+                                                                                    </asp:DropDownList></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td width="200px">Datum:
@@ -398,7 +398,7 @@
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
 
-                <table width="600px" height="775px" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 5px;">
+                <table width="600px" height="600px" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 5px; margin-bottom: 200px;">
                     <tr valign="top">
                         <td class="body">
                             <table style="border: none;">
@@ -431,5 +431,82 @@
 
             </ContentTemplate>
         </asp:UpdatePanel>
+    </asp:Panel>
+
+    <asp:Button ID="btnShowOpis" runat="server" Style="display: none" />
+    <cc1:ModalPopupExtender ID="mdlPopupOpis" runat="server" TargetControlID="btnShowOpis"
+        PopupControlID="pnlOpis" CancelControlID="btnCloseOpis" BackgroundCssClass="modalBackground" />
+    <asp:Panel ID="pnlOpis" runat="server" Style="display: none" CssClass="modalPopup" BehaviorID="modal1">
+
+        <div id="Div2" runat="server" style="max-height: 850px; overflow: auto;">
+            <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                <ContentTemplate>
+                    <table height="350px" width="750px" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 5px;">
+                        <tr valign="top">
+                            <td class="body">
+                                <table width="100%" style="padding: 10px; border: none;">
+                                    <tr>
+                                        <td align="right">
+                                            <asp:Button ID="btnCloseOpis" runat="server" Text="Button" Style="display: none" />
+                                            <a id="A1" class="closeButton" runat="server" onserverclick="btnZatvoriOpisSelected_Click"
+                                                title="Zatvori"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="naslov">&nbsp;<asp:Label ID="Label3" runat="server">Opis promatranja</asp:Label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="asp:labelatxt1">
+                                                <table width="650px" cellpadding="0" cellspacing="0" style="background: #ffffff;">
+                                                    <tr valign="top">
+                                                        <td>
+                                                            <table width="100%">
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%">
+                                                                            <tr>
+                                                                                <td width="100%" height="10px">
+
+                                                                                    <asp:Label ID="label4" runat="server" ForeColor="#990000" Visible="False"></asp:Label>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table height="180px" cellpadding="8px">
+                                                                            <tr>
+                                                                                <td width="300px">Opis:
+                                                                                </td>
+                                                                                <td width="600px">
+                                                                                    <asp:TextBox ID="txtOpis" runat="server" TextMode="MultiLine" Width="550px" Height="200px" class="form-control" ReadOnly="true" Style="resize: none;"></asp:TextBox>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><asp:Button ID="btnUrediOpis" runat="server" Visible="true" Text="Uredi" class="form-control btn btn-primary"/></td>
+                                                                                <td><asp:Button ID="btnSpremiOpis" runat="server" Visible="false" Text="Spremi" class="form-control btn btn-primary"/></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
     </asp:Panel>
 </asp:Content>

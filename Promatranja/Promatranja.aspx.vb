@@ -1,6 +1,7 @@
 ﻿
 Imports System.Data
 Imports System.Data.SqlClient
+Imports System.IO
 Imports System.Xml
 Imports AjaxControlToolkit
 
@@ -76,12 +77,17 @@ Partial Class Promatranja_Promatranja
         End Set
     End Property
 
+    Dim listItemPrazno As New ListItem
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim brojac As Integer = 0
         If Not Page.IsPostBack Then
             If Context.User.Identity.IsAuthenticated = False Then
                 Response.Redirect("~/Login.aspx", False)
             End If
+
+            listItemPrazno.Value = -1
+            listItemPrazno.Text = ""
 
             PopuniDDLLokacije()
             PopuniDDLInstrumenti()
@@ -92,9 +98,12 @@ Partial Class Promatranja_Promatranja
             PopuniDDLObjektVrsta()
             PopuniDDLPovecanje()
             PopuniDDLSvjetlina()
+            PopuniDDLOkular()
+            PopuniDDLBarlow()
         Else
-
+            'Kad se dogodi postback kontrole iz diva se obrišu pa ih treba ponovo napuniti
             If ses_slike_promatranje.Count > 0 Then
+                SlikeRender.Controls.Clear()
                 For Each slika In ses_slike_promatranje
                     Dim image As New Image
                     image.ImageUrl = DohvatiPathSlike(slika)
@@ -130,11 +139,16 @@ Partial Class Promatranja_Promatranja
     End Sub
 
     Private Sub PopuniDDLLokacije()
+        DropDownListLokacije.Items.Clear()
+        DropDownListLokacijaEdit.Items.Clear()
+        DropDownListLokacije.Items.Add(listItemPrazno)
+        DropDownListLokacijaEdit.Items.Add(listItemPrazno)
+
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT lokacija_id, Vrijednost FROM [AstroRepository].[dbo].[tLokacija] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT lokacija_id, Naziv FROM [AstroRepository].[dbo].[tLokacija] WHERE Datum_do IS NULL ORDER BY Naziv ASC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
@@ -157,11 +171,13 @@ Partial Class Promatranja_Promatranja
         End Try
     End Sub
     Private Sub PopuniDDLPromatranjeTip()
+        DropDownListPromatranjeTipEdit.Items.Clear()
+        DropDownListPromatranjeTipEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT promatranje_tip_id, Vrijednost FROM [AstroRepository].[dbo].[tPromatranje_tip] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT promatranje_tip_id, Naziv FROM [AstroRepository].[dbo].[tPromatranje_tip] WHERE Datum_do IS NULL ORDER BY Naziv ASC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
@@ -170,6 +186,7 @@ Partial Class Promatranja_Promatranja
 
                             listItem.Value = sqlReader.GetInt32(0)
                             listItem.Text = sqlReader.GetString(1)
+
 
                             DropDownListPromatranjeTipEdit.Items.Add(listItem)
 
@@ -183,11 +200,13 @@ Partial Class Promatranja_Promatranja
         End Try
     End Sub
     Private Sub PopuniDDLSlikaKvaliteta()
+        DropDownListSlikaKvalitetaEdit.Items.Clear()
+        DropDownListSlikaKvalitetaEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT slika_kvaliteta_id, Vrijednost FROM [AstroRepository].[dbo].[tSlika_Kvaliteta] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT slika_kvaliteta_id, Naziv FROM [AstroRepository].[dbo].[tSlika_Kvaliteta] WHERE Datum_do IS NULL", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
@@ -209,11 +228,13 @@ Partial Class Promatranja_Promatranja
         End Try
     End Sub
     Private Sub PopuniDDLObjektVrsta()
+        DropDownListObjektVrstaEdit.Items.Clear()
+        DropDownListObjektVrstaEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT objekt_vrsta_id, Vrijednost FROM [AstroRepository].[dbo].[tObjekt_Vrsta] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT objekt_vrsta_id, Naziv FROM [AstroRepository].[dbo].[tObjekt_Vrsta] WHERE Datum_do IS NULL ORDER BY Naziv ASC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
@@ -235,11 +256,13 @@ Partial Class Promatranja_Promatranja
         End Try
     End Sub
     Private Sub PopuniDDLPovecanje()
+        DropDownListPovecanjeEdit.Items.Clear()
+        DropDownListPovecanjeEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT povecanje_id, Vrijednost FROM [AstroRepository].[dbo].[tPovecanje] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT povecanje_id, Naziv FROM [AstroRepository].[dbo].[tPovecanje] WHERE Datum_do IS NULL ORDER BY Naziv DESC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
@@ -261,11 +284,15 @@ Partial Class Promatranja_Promatranja
         End Try
     End Sub
     Private Sub PopuniDDLInstrumenti()
+        DropDownListInstrumenti.Items.Clear()
+        DropDownListInstrumentiEdit.Items.Clear()
+        DropDownListInstrumenti.Items.Add(listItemPrazno)
+        DropDownListInstrumentiEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT instrument_id, Vrijednost FROM [AstroRepository].[dbo].[tInstrument] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT instrument_id, Naziv FROM [AstroRepository].[dbo].[tInstrument] WHERE Datum_do IS NULL ORDER BY Naziv ASC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
@@ -288,14 +315,19 @@ Partial Class Promatranja_Promatranja
         End Try
     End Sub
     Private Sub PopuniDDLObjekti()
+        DropDownListObjekti.Items.Clear()
+        DropDownListObjektiEdit.Items.Clear()
+        DropDownListObjekti.Items.Add(listItemPrazno)
+        DropDownListObjektiEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT objekt_id, Vrijednost FROM [AstroRepository].[dbo].[tObjekt] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT objekt_id, Naziv FROM [AstroRepository].[dbo].[tObjekt] WHERE Datum_do IS NULL ORDER BY Naziv ASC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
+
                             Dim listItem As New ListItem
 
 
@@ -314,15 +346,78 @@ Partial Class Promatranja_Promatranja
             Console.WriteLine(ex.Message.ToString)
         End Try
     End Sub
-    Private Sub PopuniDDLSvjetlina()
+    Private Sub PopuniDDLOkular()
+        DropDOwnListOkularEdit.Items.Clear()
+        DropDOwnListOkularEdit.Items.Add(listItemPrazno)
         Try
             Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
                 cn.Open()
 
-                Using cmd As SqlCommand = New SqlCommand("SELECT svjetlina_id, Vrijednost FROM [AstroRepository].[dbo].[tSvjetlina] WHERE Datum_do IS NULL", cn)
+                Using cmd As SqlCommand = New SqlCommand("SELECT okular_id, Naziv FROM [AstroRepository].[dbo].[tOkular] WHERE Datum_do IS NULL ORDER BY Naziv ASC", cn)
 
                     Using sqlReader As SqlDataReader = cmd.ExecuteReader
                         While sqlReader.Read
+
+                            Dim listItem As New ListItem
+
+
+                            listItem.Value = sqlReader.GetInt32(0)
+                            listItem.Text = sqlReader.GetString(1)
+
+                            DropDOwnListOkularEdit.Items.Add(listItem)
+
+                        End While
+                    End Using
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message.ToString)
+        End Try
+    End Sub
+
+    Private Sub PopuniDDLBarlow()
+        DropDownListBarlowEdit.Items.Clear()
+        DropDownListBarlowEdit.Items.Add(listItemPrazno)
+        Try
+            Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
+                cn.Open()
+
+                Using cmd As SqlCommand = New SqlCommand("SELECT barlow_id, Naziv FROM [AstroRepository].[dbo].[tBarlow] WHERE Datum_do IS NULL ORDER BY Naziv DESC", cn)
+
+                    Using sqlReader As SqlDataReader = cmd.ExecuteReader
+                        While sqlReader.Read
+
+                            Dim listItem As New ListItem
+
+
+                            listItem.Value = sqlReader.GetInt32(0)
+                            listItem.Text = sqlReader.GetString(1)
+
+                            DropDownListBarlowEdit.Items.Add(listItem)
+
+                        End While
+                    End Using
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message.ToString)
+        End Try
+    End Sub
+
+    Private Sub PopuniDDLSvjetlina()
+        DropDownListSvjetlinaEdit.Items.Clear()
+        DropDownListSvjetlinaEdit.Items.Add(listItemPrazno)
+        Try
+            Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
+                cn.Open()
+
+                Using cmd As SqlCommand = New SqlCommand("SELECT svjetlina_id, Naziv FROM [AstroRepository].[dbo].[tSvjetlina] WHERE Datum_do IS NULL", cn)
+
+                    Using sqlReader As SqlDataReader = cmd.ExecuteReader
+                        While sqlReader.Read
+
                             Dim listItem As New ListItem
 
 
@@ -346,7 +441,11 @@ Partial Class Promatranja_Promatranja
 
         Dim trenutna_godina As Integer = CInt(DateTime.Now.Year)
 
+        DropDownListGodine.Items.Clear()
+        DropDownListGodine.Items.Add(listItemPrazno)
+
         For i As Integer = pocetna_godina To trenutna_godina
+
             Dim listItem As New ListItem
 
             listItem.Value = i
@@ -367,26 +466,75 @@ Partial Class Promatranja_Promatranja
         OcistiFormuEdit()
 
         btnSpremiNovoPromatranje.Visible = True
+        GridViewPromatranja.DataBind()
+    End Sub
+
+    Protected Sub btnUrediOpis_Click(sender As Object, e As EventArgs) Handles btnUrediOpis.Click
+        btnSpremiOpis.Visible = True
+        btnUrediOpis.Visible = False
+        txtOpis.ReadOnly = False
+        GridViewPromatranja.DataBind()
+    End Sub
+
+    Protected Sub btnSpremiOpis_Click(sender As Object, e As EventArgs) Handles btnSpremiOpis.Click
+        btnSpremiOpis.Visible = False
+        btnUrediOpis.Visible = True
+        txtOpis.ReadOnly = True
+
+        Try
+            Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
+                cn.Open()
+
+                Using cmd As SqlCommand = New SqlCommand("[dbo].[uspOpis_EDIT]", cn)
+                    cmd.CommandType = CommandType.StoredProcedure
+
+                    cmd.Parameters.AddWithValue("@opis", txtOpis.Text.Trim)
+                    cmd.Parameters.AddWithValue("@promatranje_id", ses_promatranje_id)
+
+                    cmd.ExecuteNonQuery()
+
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message.ToString)
+        End Try
+        GridViewPromatranja.DataBind()
     End Sub
 
     Private Sub OcistiFormuEdit()
         slike_naziv.Clear()
         slike_path.Clear()
 
-        DropDownListLokacijaEdit.SelectedValue = -1
-        DropDownListPovecanjeEdit.SelectedValue = -1
-        DropDownListSvjetlinaEdit.SelectedValue = -1
-        DropDownListSlikaKvalitetaEdit.SelectedValue = -1
-        DropDownListObjektiEdit.SelectedValue = -1
+        DropDownListLokacijaEdit.SelectedIndex = 0
+        DropDownListPovecanjeEdit.SelectedIndex = 0
+        DropDownListSvjetlinaEdit.SelectedIndex = 0
+        DropDownListSlikaKvalitetaEdit.SelectedIndex = 0
+        DropDownListObjektiEdit.SelectedIndex = 0
         txtDatumEdit.Text = ""
         txtOpisEdit.Text = ""
-        DropDownListInstrumentiEdit.SelectedValue = -1
-        DropDownListPromatranjeTipEdit.SelectedValue = -1
-        DropDownListObjektVrstaEdit.SelectedValue = -1
+        txtNoviObjekt.Text = ""
+        txtNoviObjekt.Visible = False
+        lblNoviObjekt.Visible = False
+        ibtnSpremiNoviObjekt.Visible = False
+        ibtnNoviObjekt.Visible = True
+        DropDownListInstrumentiEdit.SelectedIndex = 0
+        DropDownListPromatranjeTipEdit.SelectedIndex = 0
+        DropDownListObjektVrstaEdit.SelectedIndex = 0
     End Sub
 
     Protected Sub btnZatvorimpeSelected_Click(sender As Object, e As System.EventArgs)
         mdlPopupEdit.Hide()
+        GridViewPromatranja.DataBind()
+    End Sub
+
+    Protected Sub btnZatvoriOpisSelected_Click(sender As Object, e As System.EventArgs)
+        mdlPopupOpis.Hide()
+        GridViewPromatranja.DataBind()
+
+        btnUrediOpis.Visible = True
+        btnSpremiOpis.Visible = False
+        txtOpis.ReadOnly = True
     End Sub
 
     Protected Sub btnSpremiNovoPromatranje_Click(sender As Object, e As EventArgs) Handles btnSpremiNovoPromatranje.Click
@@ -397,16 +545,16 @@ Partial Class Promatranja_Promatranja
 
                 Using cmd As SqlCommand = New SqlCommand("[dbo].[uspPromatranje_INS]", cn)
                     cmd.CommandType = CommandType.StoredProcedure
-
-
-                    cmd.Parameters.AddWithValue("@instrument_id", DropDownListInstrumentiEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@povecanje_id", DropDownListPovecanjeEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@lokacija_id", DropDownListLokacijaEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@promatranje_tip_id", DropDownListInstrumentiEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@svjetlina_id", DropDownListSvjetlinaEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@slika_kvaliteta_id", DropDownListSlikaKvalitetaEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@objekt_id", DropDownListObjektiEdit.SelectedValue)
-                    cmd.Parameters.AddWithValue("@objekt_vrsta_id", DropDownListObjektVrstaEdit.SelectedValue)
+                    cmd.Parameters.AddWithValue("@instrument_id", IIf(DropDownListInstrumentiEdit.SelectedValue <> "-1", DropDownListInstrumentiEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@povecanje_id", IIf(DropDownListPovecanjeEdit.SelectedValue <> "-1", DropDownListPovecanjeEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@lokacija_id", IIf(DropDownListLokacijaEdit.SelectedValue <> "-1", DropDownListLokacijaEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@promatranje_tip_id", IIf(DropDownListInstrumentiEdit.SelectedValue <> "-1", DropDownListInstrumentiEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@svjetlina_id", IIf(DropDownListSvjetlinaEdit.SelectedValue <> "-1", DropDownListSvjetlinaEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@slika_kvaliteta_id", IIf(DropDownListSlikaKvalitetaEdit.SelectedValue <> "-1", DropDownListSlikaKvalitetaEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@objekt_id", IIf(DropDownListObjektiEdit.SelectedValue <> "-1", DropDownListObjektiEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@objekt_vrsta_id", IIf(DropDownListObjektVrstaEdit.SelectedValue <> "-1", DropDownListObjektVrstaEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@okular_id", IIf(DropDOwnListOkularEdit.SelectedValue <> "-1", DropDOwnListOkularEdit.SelectedValue, DBNull.Value))
+                    cmd.Parameters.AddWithValue("@barlow_id", IIf(DropDownListBarlowEdit.SelectedValue <> "-1", DropDownListBarlowEdit.SelectedValue, DBNull.Value))
                     cmd.Parameters.AddWithValue("@datum", DateTime.Parse(txtDatumEdit.Text))
                     cmd.Parameters.AddWithValue("@ucr", Session("user_id"))
 
@@ -485,6 +633,7 @@ Partial Class Promatranja_Promatranja
             Dim promatranje_id As Integer = e.Row.DataItem("promatranje_id").ToString
 
             CType(e.Row.FindControl("ibtnSlika"), ImageButton).CommandArgument = CType(e.Row.DataItem, Data.DataRowView).Row("promatranje_id").ToString()
+            CType(e.Row.FindControl("ibtnOpis"), ImageButton).CommandArgument = CType(e.Row.DataItem, Data.DataRowView).Row("promatranje_id").ToString()
 
             If Not ImaSliku(promatranje_id) Then
                 e.Row.Cells.Item(0).Text = ""
@@ -498,10 +647,10 @@ Partial Class Promatranja_Promatranja
     Protected Sub GridViewPromatranja_RowCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles GridViewPromatranja.RowCommand
         Dim argumenti = e.CommandArgument.ToString
         Dim argumentiList = argumenti.Split(";")
+        Dim promatranje_id = argumentiList(0)
         Dim slike As New ArrayList
 
         If e.CommandName = "PrikaziSlika" Then
-            Dim promatranje_id = argumentiList(0)
             ses_promatranje_id = promatranje_id
             Dim brojac As Integer = 0
 
@@ -526,10 +675,18 @@ Partial Class Promatranja_Promatranja
             Next
 
             slika_index = 0
-            imgNext.Visible = True
+
+            If slike.Count > 1 Then
+                imgNext.Visible = True
+            End If
+
             imgPrevious.Visible = False
             SlikaPrikaz.Visible = True
             mdlPopupSlika.Show()
+        ElseIf e.CommandName = "PrikaziOpis" Then
+            ses_promatranje_id = promatranje_id
+            txtOpis.Text = GetOpisPromatranje(promatranje_id)
+            mdlPopupOpis.Show()
         End If
         GridViewPromatranja.DataBind()
     End Sub
@@ -582,11 +739,74 @@ Partial Class Promatranja_Promatranja
 
         GridViewPromatranja.DataBind()
     End Sub
+
+    Private Function GetOpisPromatranje(promatranje_id As Integer) As String
+        Dim opis As String = ""
+        Try
+            Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
+                cn.Open()
+
+                Using cmd As SqlCommand = New SqlCommand("SELECT Opis FROM [AstroRepository].[dbo].[tPromatranje] WHERE Promatranje_id = @promatranje_id AND Datum_do IS NULL", cn)
+                    cmd.Parameters.AddWithValue("@promatranje_id", promatranje_id)
+
+                    Dim sqlReader As SqlDataReader = cmd.ExecuteReader
+
+                    If sqlReader.Read Then
+                        opis = sqlReader.GetString(0)
+                    End If
+
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message.ToString)
+        End Try
+        Return opis
+    End Function
     Protected Sub btnZatvoriSliku_Click(sender As Object, e As EventArgs) Handles btnZatvoriSliku.Click
         mdlPopupSlika.Hide()
         SlikeRender.Controls.Clear()
         ses_slike_promatranje.Clear()
         GridViewPromatranja.DataBind()
+    End Sub
+
+    Protected Sub ibtnNoviObjekt_Click(sender As Object, e As EventArgs) Handles ibtnNoviObjekt.Click
+        txtNoviObjekt.Visible = True
+        ibtnSpremiNoviObjekt.Visible = True
+        lblNoviObjekt.Visible = True
+        ibtnNoviObjekt.Visible = False
+    End Sub
+
+    Protected Sub ibtnSpremiNoviObjekt_Click(sender As Object, e As EventArgs) Handles ibtnSpremiNoviObjekt.Click
+        ibtnSpremiNoviObjekt.Visible = False
+        txtNoviObjekt.Visible = False
+        lblNoviObjekt.Visible = False
+        ibtnNoviObjekt.Visible = True
+
+        SpremiObjekt(txtNoviObjekt.Text.Trim)
+
+        PopuniDDLObjekti()
+    End Sub
+
+    Private Sub SpremiObjekt(naziv As String)
+        Try
+            Using cn As SqlConnection = New SqlConnection(ConfigurationManager.ConnectionStrings("AstroSQLConnectionString").ConnectionString)
+                cn.Open()
+
+                Using cmd As SqlCommand = New SqlCommand("[dbo].[uspObjekt_INSERT]", cn)
+                    cmd.CommandType = CommandType.StoredProcedure
+
+                    cmd.Parameters.AddWithValue("@naziv", naziv)
+                    cmd.Parameters.AddWithValue("@ucr", Session("user_id"))
+
+                    cmd.ExecuteNonQuery()
+
+                End Using
+            End Using
+
+        Catch ex As Exception
+            Console.WriteLine(ex.Message.ToString)
+        End Try
     End Sub
 
     Private Function DohvatiSlikePromatranje(promatranje_id As Integer) As ArrayList
