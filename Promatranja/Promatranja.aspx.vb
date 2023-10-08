@@ -678,6 +678,8 @@ Partial Class Promatranja_Promatranja
 
             If slike.Count > 1 Then
                 imgNext.Visible = True
+            Else
+                imgNext.Visible = False
             End If
 
             imgPrevious.Visible = False
@@ -775,6 +777,7 @@ Partial Class Promatranja_Promatranja
         ibtnSpremiNoviObjekt.Visible = True
         lblNoviObjekt.Visible = True
         ibtnNoviObjekt.Visible = False
+        GridViewPromatranja.DataBind()
     End Sub
 
     Protected Sub ibtnSpremiNoviObjekt_Click(sender As Object, e As EventArgs) Handles ibtnSpremiNoviObjekt.Click
@@ -784,6 +787,7 @@ Partial Class Promatranja_Promatranja
         ibtnNoviObjekt.Visible = True
 
         SpremiObjekt(txtNoviObjekt.Text.Trim)
+        GridViewPromatranja.DataBind()
 
         PopuniDDLObjekti()
     End Sub
