@@ -521,6 +521,8 @@ Partial Class Promatranja_Promatranja
         DropDownListInstrumentiEdit.SelectedIndex = 0
         DropDownListPromatranjeTipEdit.SelectedIndex = 0
         DropDownListObjektVrstaEdit.SelectedIndex = 0
+        DropDownListBarlowEdit.SelectedIndex = 0
+        DropDOwnListOkularEdit.SelectedIndex = 0
     End Sub
 
     Protected Sub btnZatvorimpeSelected_Click(sender As Object, e As System.EventArgs)
@@ -726,6 +728,7 @@ Partial Class Promatranja_Promatranja
 
         If slika_index = 0 Then
             imgPrevious.Visible = False
+            imgNext.Visible = True
         Else
             imgNext.Visible = True
         End If
