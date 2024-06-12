@@ -90,7 +90,7 @@
 
                                     <div class="col-auto">
                                         <asp:Label for="DropDownListObjekti" runat="server">Objekt:</asp:Label>
-                                        <asp:DropDownList ID="DropDownListObjekti" runat="server" Width="150px" class="form-control">
+                                        <asp:DropDownList ID="DropDownListObjekti" runat="server" Width="250px" class="form-control">
                                         </asp:DropDownList>
                                     </div>
 
@@ -311,7 +311,7 @@
                                                                                 <td>
                                                                                     <div class="d-flex align-items-center">
                                                                                         <asp:DropDownList ID="DropDownListObjektiEdit" runat="server"
-                                                                                            Width="150px" class="form-control">
+                                                                                            Width="250px" class="form-control">
                                                                                         </asp:DropDownList>&nbsp;<asp:ImageButton ID="ibtnNoviObjekt" runat="server" ImageUrl="/Slike/plus.png" />
                                                                                         &nbsp;&nbsp;<asp:Label ID="lblNoviObjekt" runat="server" Visible="false">Novi objekt:</asp:Label>&nbsp;&nbsp;<asp:TextBox ID="txtNoviObjekt" runat="server" Width="150px" class="form-control" Visible="false"></asp:TextBox>&nbsp;&nbsp;<asp:ImageButton ID="ibtnSpremiNoviObjekt" runat="server" ImageUrl="/Slike/checkmark.png" Visible="false" />
                                                                                     </div>
