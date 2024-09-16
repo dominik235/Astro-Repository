@@ -82,6 +82,7 @@ Partial Class Promatranja_Promatranja
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim brojac As Integer = 0
         If Not Page.IsPostBack Then
+            ses_slike_promatranje.Clear()
             If Context.User.Identity.IsAuthenticated = False Then
                 Response.Redirect("~/Login.aspx", False)
             End If

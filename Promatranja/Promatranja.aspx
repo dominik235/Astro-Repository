@@ -398,7 +398,7 @@
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
 
-                <table width="600px" height="600px" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 5px; margin-bottom: 200px;">
+                <table width="600px" height="600px" cellpadding="0" cellspacing="0" style="background-color: transparent; border-radius: 5px; margin-bottom: 200px;">
                     <tr valign="top">
                         <td class="body">
                             <table style="border: none;">
